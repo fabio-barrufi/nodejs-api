@@ -3,13 +3,12 @@ import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as logger from "morgan";
 
-import { connectServidorNoBD } from "./config/db";
-import { routerUsuario } from "./routes/usuario";
+import { routerUsuario } from "./route/usuario";
+import { routerLancamento } from "./route/lancamentos";
 
 /**
  * Cria a aplicação
  */
-
 export const app = express();
 
 /**
@@ -25,15 +24,12 @@ app.use(bodyParser.json());
 /**
  * Configura os logs
  */
-app.use(logger('dev'));
-
-/**
- * Conecta no db
- */
-connectServidorNoBD();
+app.use(logger("dev"));
 
 /**
  * Configuração de rotas
  */
-app.use('/usuario', routerUsuario);
-app.use('/', (req, res) => res.send('API nodejs'));
+
+app.use("/usuario", routerUsuario);
+app.use("/lancamento", routerLancamento);
+app.use("/", (req, res) => res.send("API do app Julius"));
